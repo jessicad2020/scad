@@ -1,26 +1,42 @@
 //Coin Trap: a 3D printed cage to hold a coin
 //By jessicad2020
-//v.0.2, 21 Nov 2018
+//v.0.3, 22 Nov 2018
 
 //parameters -------------------------------------------------
-$fa=1;
-$fs=1;
-coin_d = 23.88; //diameter of a quarter
-coin_th = 1.58; //thickness of a quarter
+//$fa=1;
+//$fs=1;
+quarter_d = 23.88; //diameter of a quarter
+quarter_th = 1.58; //thickness of a quarter
+penny_d = 19.05;
+penny_th = 1.45;
 gap=1;
 
 //render -----------------------------------------------------
 
-coin(coin_d, coin_th); //the coin
-trap(coin_d, coin_th); //the trap
-
+trap(quarter_d, quarter_th); //the trap
+translate([0,-40,0])trap(penny_d, penny_th);
+translate([40,0,0])base(quarter_d);
 //modules ----------------------------------------------------
-module coin(coin_d, coin_th) {
-    %cylinder(d=coin_d, th=coin_th, center=true);
+ 
+module base(coin_d) {
+    difference(){
+    sphere(d=coin_d);
+    translate([0,0,-coin_d/2]) cube(size=coin_d, center=true);
+        rotate([54.74,0,0])
+        rotate([0,0,45])
+        translate([coin_d/2,coin_d/2,coin_d/2])
+        #minkowski() {
+            cube(size=0.8*coin_d, center=true);
+            sphere(r=0.1*coin_d);
+    }
+        
+        
+    }
+    
 }
-
 module trap(coin_d, coin_th) {
-  translate(0,0,coin_d/2) {  
+  translate([0,0,coin_d/2]) { 
+    %cylinder(d=coin_d, th=coin_th, center=true);
     difference() {
         minkowski() {
             cube(size=0.8*coin_d, center=true);
