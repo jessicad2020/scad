@@ -12,10 +12,10 @@ phoneH = 10;
 
 //render ---------------------------------------------------
 //phone();
-triangle();
+triangle(1.3);
 //modules --------------------------------------------------
-module triangle() {
-    cube([phoneL*1.2, phoneW*1.2, phoneL], center=true);
+module triangle(size) {
+    cube([phoneL*size, phoneW*size, phoneL], center=true);
 }
 
 module phone() {
