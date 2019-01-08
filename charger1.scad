@@ -9,16 +9,40 @@ chargeH = 26.3; //height of an Apple charger block
 phoneL = 150; 
 phoneW = 75;
 phoneH = 10;
+rad = 15;
 
 //render ---------------------------------------------------
-//phone();
-triangle(1.3);
+%phone();
+holder();
+
 //modules --------------------------------------------------
-module triangle(size) {
-    cube([phoneL*size, phoneW*size, phoneL], center=true);
-    //try hull instead
+module holder() {
+    difference() {
+       triangle(1.4, 1);
+       triangle(1.2, 5);
+    }
+}
+
+module triangle(size, height) {
+    hull() {
+        translate([phoneL*size*0.5, phoneW*size*-0.5, phoneW*size*0.5]) {
+            cylinder(h=phoneW*size*height, r=rad, center=true);
+    }
+        translate([phoneL*size*-0.5, phoneW*size*-0.5, phoneW*size*0.5]) {
+            cylinder(h=phoneW*size*height, r=rad, center=true);
+        }
+        translate([chargeW*size*0.5, phoneW*size*0.5, chargeL*size*0.5]) {
+            cylinder(h=chargeL*size*height, r=rad, center=true);
+        }
+        translate([chargeW*size*-0.5, phoneW*size*0.5, chargeL*size*0.5]) {
+            cylinder(h=chargeL*size*height, r=rad, center=true);
+        }
+    }
+    
 }
 
 module phone() {
-    cube([phoneL, phoneW, phoneH], center=true);
+    translate([0,phoneL*-0.3, phoneW*0.5]) {
+        cube([phoneL, phoneH, phoneW], center=true);
+    }
 }
