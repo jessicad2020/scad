@@ -12,14 +12,20 @@ phoneH = 10;
 rad = 15;
 
 //render ---------------------------------------------------
-%phone();
-holder();
+//%phone();
+holder(1.3);
 
 //modules --------------------------------------------------
-module holder() {
+module holder(size) {
     difference() {
-       triangle(1.4, 1);
+       triangle(size, 1);
        triangle(1.2, 5);
+       translate([phoneL*size*0.55, phoneW*-0.5, phoneW/2*size]) {
+            cube([30, phoneH, phoneW/2], center=true);
+       }
+       
+       //add a cylinder to the difference for charging
+       
     }
 }
 
