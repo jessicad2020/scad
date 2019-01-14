@@ -1,6 +1,6 @@
 //Design an Object: Outlet Phone Holder
 //By jessicad2020
-//v.0.1, 4 Jan 2019
+//v.0.5, 14 Jan 2019
 
 //parameters -----------------------------------------------
 chargeW = 25.7; //width of an Apple charger block
@@ -19,14 +19,24 @@ holder(1.3);
 module holder(size) {
     difference() {
        triangle(size, 1);
-       triangle(1.2, 5);
-       translate([phoneL*size*0.55, phoneW*-0.5, phoneW/2*size]) {
-            cube([30, phoneH, phoneW/2], center=true);
-       }
-       
-       //add a cylinder to the difference for charging
-       
+       triangle(size-0.1, 5);
+       semic(size);
+       //add a something to the difference for charging
+        
     }
+}
+
+module semic(size) {
+   translate([phoneL*size*0.55, phoneW*-0.5, phoneW/2*size]) {
+       rotate([0,90,0]) {
+           difference() {
+               cylinder(r=rad, h=30, center=true);
+               translate([0,-rad*1.5,0]) {
+                   cube(size=rad*3, center=true);
+                }
+           }
+       }
+  } 
 }
 
 module triangle(size, height) {
